@@ -38,10 +38,297 @@ nums	result
 6마리의 폰켓몬이 있으므로, 3마리의 폰켓몬을 골라야 합니다.
 가장 많은 종류의 폰켓몬을 고르기 위해서는 3번 폰켓몬 한 마리와 2번 폰켓몬 두 마리를 고르거나, 혹은 3번 폰켓몬 두 마리와 2번 폰켓몬 한 마리를 고르면 됩니다. 따라서 최대 고를 수 있는 폰켓몬 종류의 수는 2입니다.
 
+Solution
 def solution(nums):
     set_nums = set(nums)
     if len(set_nums) < len(nums) // 2:
         answer = len(set_nums)
     else:
         answer = len(nums) // 2
+    return answer
+
+푸드 파이트 대회(https://school.programmers.co.kr/learn/courses/30/lessons/134240)
+
+문제 설명
+수웅이는 매달 주어진 음식을 빨리 먹는 푸드 파이트 대회를 개최합니다. 이 대회에서 선수들은 1대 1로 대결하며, 매 대결마다 음식의 종류와 양이 바뀝니다. 대결은 준비된 음식들을 일렬로 배치한 뒤, 한 선수는 제일 왼쪽에 있는 음식부터 오른쪽으로, 다른 선수는 제일 오른쪽에 있는 음식부터 왼쪽으로 순서대로 먹는 방식으로 진행됩니다. 중앙에는 물을 배치하고, 물을 먼저 먹는 선수가 승리하게 됩니다.
+
+이때, 대회의 공정성을 위해 두 선수가 먹는 음식의 종류와 양이 같아야 하며, 음식을 먹는 순서도 같아야 합니다. 또한, 이번 대회부터는 칼로리가 낮은 음식을 먼저 먹을 수 있게 배치하여 선수들이 음식을 더 잘 먹을 수 있게 하려고 합니다. 이번 대회를 위해 수웅이는 음식을 주문했는데, 대회의 조건을 고려하지 않고 음식을 주문하여 몇 개의 음식은 대회에 사용하지 못하게 되었습니다.
+
+예를 들어, 3가지의 음식이 준비되어 있으며, 칼로리가 적은 순서대로 1번 음식을 3개, 2번 음식을 4개, 3번 음식을 6개 준비했으며, 물을 편의상 0번 음식이라고 칭한다면, 두 선수는 1번 음식 1개, 2번 음식 2개, 3번 음식 3개씩을 먹게 되므로 음식의 배치는 "1223330333221"이 됩니다. 따라서 1번 음식 1개는 대회에 사용하지 못합니다.
+
+수웅이가 준비한 음식의 양을 칼로리가 적은 순서대로 나타내는 정수 배열 food가 주어졌을 때, 대회를 위한 음식의 배치를 나타내는 문자열을 return 하는 solution 함수를 완성해주세요.
+
+제한사항
+- 2 ≤ food의 길이 ≤ 9
+- 1 ≤ food의 각 원소 ≤ 1,000
+- food에는 칼로리가 적은 순서대로 음식의 양이 담겨 있습니다.
+- food[i]는 i번 음식의 수입니다.
+- food[0]은 수웅이가 준비한 물의 양이며, 항상 1입니다.
+- 정답의 길이가 3 이상인 경우만 입력으로 주어집니다.
+
+입출력 예
+food	result
+[1, 3, 4, 6]	"1223330333221"
+[1, 7, 1, 2]	"111303111"
+입출력 예 설명
+입출력 예 #1
+
+문제 예시와 같습니다.
+입출력 예 #1
+
+두 선수는 1번 음식 3개, 3번 음식 1개를 먹게 되므로 음식의 배치는 "111303111"입니다.
+
+Solution
+def solution(food):
+    answer = ''
+    for i in range(1, len(food)):
+        answer += (str(i)*(food[i]//2))
+    return answer + '0' + answer[::-1]
+
+K번째수(https://school.programmers.co.kr/learn/courses/30/lessons/42748)
+
+문제 설명
+배열 array의 i번째 숫자부터 j번째 숫자까지 자르고 정렬했을 때, k번째에 있는 수를 구하려 합니다.
+
+예를 들어 array가 [1, 5, 2, 6, 3, 7, 4], i = 2, j = 5, k = 3이라면
+
+1. array의 2번째부터 5번째까지 자르면 [5, 2, 6, 3]입니다.
+2. 1에서 나온 배열을 정렬하면 [2, 3, 5, 6]입니다.
+3. 2에서 나온 배열의 3번째 숫자는 5입니다.
+배열 array, [i, j, k]를 원소로 가진 2차원 배열 commands가 매개변수로 주어질 때, commands의 모든 원소에 대해 앞서 설명한 연산을 적용했을 때 나온 결과를 배열에 담아 return 하도록 solution 함수를 작성해주세요.
+
+제한사항
+- array의 길이는 1 이상 100 이하입니다.
+- array의 각 원소는 1 이상 100 이하입니다.
+- commands의 길이는 1 이상 50 이하입니다.
+- commands의 각 원소는 길이가 3입니다.
+
+입출력 예
+array	commands	return
+[1, 5, 2, 6, 3, 7, 4]	[[2, 5, 3], [4, 4, 1], [1, 7, 3]]	[5, 6, 3]
+
+입출력 예 설명
+[1, 5, 2, 6, 3, 7, 4]를 2번째부터 5번째까지 자른 후 정렬합니다. [2, 3, 5, 6]의 세 번째 숫자는 5입니다.
+[1, 5, 2, 6, 3, 7, 4]를 4번째부터 4번째까지 자른 후 정렬합니다. [6]의 첫 번째 숫자는 6입니다.
+[1, 5, 2, 6, 3, 7, 4]를 1번째부터 7번째까지 자릅니다. [1, 2, 3, 4, 5, 6, 7]의 세 번째 숫자는 3입니다.
+
+Solution
+def solution(array, commands):
+    answer = []
+    for i in commands:
+        slice_arr = array[i[0]-1:i[1]]
+        slice_arr.sort()
+        answer.append(slice_arr[i[2]-1])
+    return answer
+    
+[1차] 비밀지도(https://school.programmers.co.kr/learn/courses/30/lessons/17681)
+
+문제 설명
+비밀지도
+네오는 평소 프로도가 비상금을 숨겨놓는 장소를 알려줄 비밀지도를 손에 넣었다. 그런데 이 비밀지도는 숫자로 암호화되어 있어 위치를 확인하기 위해서는 암호를 해독해야 한다. 다행히 지도 암호를 해독할 방법을 적어놓은 메모도 함께 발견했다.
+
+지도는 한 변의 길이가 n인 정사각형 배열 형태로, 각 칸은 "공백"(" ") 또는 "벽"("#") 두 종류로 이루어져 있다.
+전체 지도는 두 장의 지도를 겹쳐서 얻을 수 있다. 각각 "지도 1"과 "지도 2"라고 하자. 지도 1 또는 지도 2 중 어느 하나라도 벽인 부분은 전체 지도에서도 벽이다. 지도 1과 지도 2에서 모두 공백인 부분은 전체 지도에서도 공백이다.
+"지도 1"과 "지도 2"는 각각 정수 배열로 암호화되어 있다.
+암호화된 배열은 지도의 각 가로줄에서 벽 부분을 1, 공백 부분을 0으로 부호화했을 때 얻어지는 이진수에 해당하는 값의 배열이다.
+secret map
+
+네오가 프로도의 비상금을 손에 넣을 수 있도록, 비밀지도의 암호를 해독하는 작업을 도와줄 프로그램을 작성하라.
+
+입력 형식
+입력으로 지도의 한 변 크기 n 과 2개의 정수 배열 arr1, arr2가 들어온다.
+
+1 ≦ n ≦ 16
+arr1, arr2는 길이 n인 정수 배열로 주어진다.
+정수 배열의 각 원소 x를 이진수로 변환했을 때의 길이는 n 이하이다. 즉, 0 ≦ x ≦ 2n - 1을 만족한다.
+출력 형식
+원래의 비밀지도를 해독하여 '#', 공백으로 구성된 문자열 배열로 출력하라.
+
+입출력 예제
+매개변수	값
+n	5
+arr1	[9, 20, 28, 18, 11]
+arr2	[30, 1, 21, 17, 28]
+출력	["#####","# # #", "### #", "# ##", "#####"]
+매개변수	값
+n	6
+arr1	[46, 33, 33 ,22, 31, 50]
+arr2	[27 ,56, 19, 14, 14, 10]
+출력	["######", "### #", "## ##", " #### ", " #####", "### # "]
+
+Solution
+def solution(n, arr1, arr2):
+    result = []
+    for i, j in zip(arr1, arr2):
+        binary_1 = bin(i)[2:]
+        binary_2 = bin(j)[2:]
+        sum_elements = int(binary_1) + int(binary_2)
+        path = ''
+        for l,i in enumerate(str(sum_elements)):
+            if int(i) >= 1:
+                path += '#'
+            else:
+                path += ' '
+        if (l+1) < n:
+            path = ' '*(n - (l+1)) + path
+            result.append(path)
+        else:
+            result.append(path)
+    return result
+    
+문자열 다루기 기본(https://school.programmers.co.kr/learn/courses/30/lessons/12918)
+
+문제 설명
+문자열 s의 길이가 4 혹은 6이고, 숫자로만 구성돼있는지 확인해주는 함수, solution을 완성하세요. 예를 들어 s가 "a234"이면 False를 리턴하고 "1234"라면 True를 리턴하면 됩니다.
+
+제한 사항
+s는 길이 1 이상, 길이 8 이하인 문자열입니다.
+s는 영문 알파벳 대소문자 또는 0부터 9까지 숫자로 이루어져 있습니다.
+입출력 예
+s	return
+"a234"	false
+"1234"	true
+
+Solution
+def solution(s):
+    if len(s) == 4:
+        answer = s.isdigit()
+    elif len(s) == 6:
+        answer = s.isdigit()
+    else:
+        answer = False
+    return answer
+
+내적(https://school.programmers.co.kr/learn/courses/30/lessons/70128)
+
+문제 설명
+길이가 같은 두 1차원 정수 배열 a, b가 매개변수로 주어집니다. a와 b의 내적을 return 하도록 solution 함수를 완성해주세요.
+
+이때, a와 b의 내적은 a[0]*b[0] + a[1]*b[1] + ... + a[n-1]*b[n-1] 입니다. (n은 a, b의 길이)
+
+제한사항
+a, b의 길이는 1 이상 1,000 이하입니다.
+a, b의 모든 수는 -1,000 이상 1,000 이하입니다.
+입출력 예
+a	b	result
+[1,2,3,4]	[-3,-1,0,2]	3
+[-1,0,1]	[1,0,-1]	-2
+입출력 예 설명
+입출력 예 #1
+
+a와 b의 내적은 1*(-3) + 2*(-1) + 3*0 + 4*2 = 3 입니다.
+입출력 예 #2
+
+a와 b의 내적은 (-1)*1 + 0*0 + 1*(-1) = -2 입니다.
+
+Solution
+def solution(a, b):
+    answer = []
+    for i, j in zip(a, b):
+        answer.append(i*j)
+        
+    return sum(answer)
+    
+수박수박수박수박수박수?(https://school.programmers.co.kr/learn/courses/30/lessons/12922)
+
+문제 설명
+길이가 n이고, "수박수박수박수...."와 같은 패턴을 유지하는 문자열을 리턴하는 함수, solution을 완성하세요. 예를들어 n이 4이면 "수박수박"을 리턴하고 3이라면 "수박수"를 리턴하면 됩니다.
+
+제한 조건
+n은 길이 10,000이하인 자연수입니다.
+입출력 예
+n	return
+3	"수박수"
+4	"수박수박"
+
+Solution
+def solution(n):
+    answer = ''
+    for i in range(1, n+1):
+        if i % 2 != 0:
+            answer += '수'
+        else:
+            answer += '박'
+            
+핸드폰 번호 가리기(https://school.programmers.co.kr/learn/courses/30/lessons/12948)
+
+문제 설명
+프로그래머스 모바일은 개인정보 보호를 위해 고지서를 보낼 때 고객들의 전화번호의 일부를 가립니다.
+전화번호가 문자열 phone_number로 주어졌을 때, 전화번호의 뒷 4자리를 제외한 나머지 숫자를 전부 *으로 가린 문자열을 리턴하는 함수, solution을 완성해주세요.
+
+제한 조건
+phone_number는 길이 4 이상, 20이하인 문자열입니다.
+입출력 예
+phone_number	return
+"01033334444"	"*******4444"
+"027778888"	"*****8888"
+
+Solution
+def solution(phone_number):
+    answer = ""
+    number = phone_number.replace(phone_number[:-4], len(phone_number[:-4])*'*')
+    answer += number    
+    return answer
+
+서울에서 김서방 찾기(https://school.programmers.co.kr/learn/courses/30/lessons/12919)
+
+문제 설명
+String형 배열 seoul의 element중 "Kim"의 위치 x를 찾아, "김서방은 x에 있다"는 String을 반환하는 함수, solution을 완성하세요. seoul에 "Kim"은 오직 한 번만 나타나며 잘못된 값이 입력되는 경우는 없습니다.
+
+제한 사항
+seoul은 길이 1 이상, 1000 이하인 배열입니다.
+seoul의 원소는 길이 1 이상, 20 이하인 문자열입니다.
+"Kim"은 반드시 seoul 안에 포함되어 있습니다.
+입출력 예
+seoul	return
+["Jane", "Kim"]	"김서방은 1에 있다"
+
+Solution
+def solution(seoul):
+    answer = ''
+    for i in range(len(seoul)):
+        if seoul[i] == 'Kim':
+            answer = f'김서방은 {i}에 있다'
+    return answer
+    
+문자열 내 p와 y의 개수(https://school.programmers.co.kr/learn/courses/30/lessons/12916)
+
+문제 설명
+대문자와 소문자가 섞여있는 문자열 s가 주어집니다. s에 'p'의 개수와 'y'의 개수를 비교해 같으면 True, 다르면 False를 return 하는 solution를 완성하세요. 'p', 'y' 모두 하나도 없는 경우는 항상 True를 리턴합니다. 단, 개수를 비교할 때 대문자와 소문자는 구별하지 않습니다.
+
+예를 들어 s가 "pPoooyY"면 true를 return하고 "Pyy"라면 false를 return합니다.
+
+제한사항
+문자열 s의 길이 : 50 이하의 자연수
+문자열 s는 알파벳으로만 이루어져 있습니다.
+입출력 예
+s	answer
+"pPoooyY"	true
+"Pyy"	false
+입출력 예 설명
+입출력 예 #1
+'p'의 개수 2개, 'y'의 개수 2개로 같으므로 true를 return 합니다.
+
+입출력 예 #2
+'p'의 개수 1개, 'y'의 개수 2개로 다르므로 false를 return 합니다.
+
+※ 공지 - 2021년 8월 23일 테스트케이스가 추가되었습니다.
+
+Solution
+def solution(s):
+    cnt1 = 0
+    cnt2 = 0
+    for i in s:
+        if i == 'P':
+            cnt1 += 1
+        elif i == 'p':
+            cnt1 += 1
+        elif i == 'Y':
+            cnt2 += 1
+        elif i == 'y':
+            cnt2 += 1
+    if cnt1 == cnt2:
+        answer = True
+    else:
+        answer = False
     return answer
